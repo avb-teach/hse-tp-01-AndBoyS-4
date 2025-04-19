@@ -1,0 +1,46 @@
+name: Tests
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  run-autograding-tests:
+
+    runs-on: ubuntu-22.04
+    if: github.actor != 'github-classroom[bot]'
+
+    strategy:
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v4
+    # - name: Install uv
+    #   uses: astral-sh/setup-uv@v5
+    # - uses: actions/cache@v3
+    #   name: Cache venv
+    #   with:
+    #     path: ./.venv
+    #     key: venv-${{ hashFiles('uv.lock') }}
+    # - name: run tests
+    #   id: run_tests
+    #   run: uv run pytest --junitxml=results.xml
+    # - name: Upload Test Report
+    #   uses: dorny/test-reporter@v2
+    #   if: always()  # Ensures this runs even if tests fail
+    #   with:
+    #     name: Pytest Results
+    #     path: results.xml
+    #     reporter: java-junit
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+          max-score: 5
+          setup-command: "pip install ."
