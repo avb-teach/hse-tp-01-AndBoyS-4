@@ -1,5 +1,10 @@
 name: Tests
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
 on:
   push:
     branches: [ "main" ]
@@ -23,4 +28,11 @@ jobs:
         path: ./.venv
         key: venv-${{ hashFiles('uv.lock') }}
     - name: run tests
-      run: uv run pytest
+      run: uv run pytest --junitxml=results.xml
+    - name: Upload Test Report
+      uses: dorny/test-reporter@v2
+      if: always()  # Ensures this runs even if tests fail
+      with:
+        name: Pytest Results
+        path: results.xml
+        reporter: java-junit
