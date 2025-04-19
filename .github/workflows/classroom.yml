@@ -15,7 +15,9 @@ jobs:
     - name: Install dependendies
       run: pip install .
     - name: Download tests script
-      run: mkdir tests; curl -o tests/test_collect_files.py ${{ secrets.TESTS_URL }}
+      env:
+        tests_url: ${{ secrets.TESTS_URL }}
+      run: mkdir tests; curl -o tests/test_collect_files.py "$tests_url"
     - name: Task 1
       id: task-1
       uses: classroom-resources/autograding-command-grader@v1
