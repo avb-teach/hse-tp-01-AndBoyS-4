@@ -43,4 +43,4 @@ jobs:
       uses: classroom-resources/autograding-python-grader@v1
       with:
           max-score: 5
-          setup-command: "uv pip install; pip install pytest --upgrade"
+          setup-command: "uv pip install"

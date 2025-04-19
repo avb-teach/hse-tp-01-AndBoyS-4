@@ -1,5 +1,4 @@
 import tempfile
-import unittest
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import NamedTuple
@@ -35,27 +34,27 @@ def get_all_files_info(root_dir: str | Path) -> list[FileData]:
     return result
 
 
-def test_script_runs_and_accepts_two_args() -> None:
+def test_script_runs_and_accepts_two_args(self) -> None:
     with tempfile.TemporaryDirectory() as input_tmp, tempfile.TemporaryDirectory() as output_tmp:
         input_dir, output_dir = Path(input_tmp), Path(output_tmp)
         run_script(input_dir, output_dir, max_depth=None)
 
 
-def test_collect_files_depth_2() -> None:
+def test_collect_files_depth_2(self) -> None:
     _test_collect_files(depth=2)
 
 
-def test_collect_files_deep() -> None:
+def test_collect_files_deep(self) -> None:
     for depth in range(3, 6):
         _test_collect_files(depth=depth)
 
 
-def test_collect_files_non_unique() -> None:
+def test_collect_files_non_unique(self) -> None:
     for depth in range(3, 6):
         _test_collect_files(depth=depth, num_unique_files=5)
 
 
-def test_collect_files_max_depth() -> None:
+def test_collect_files_max_depth(self) -> None:
     for depth in range(3, 6):
         for max_depth in range(2, 4):
             _test_collect_files(depth=depth, max_depth=max_depth)
@@ -108,7 +107,3 @@ def _check_max_depth_files(expected_files: list[FileData], copied_files: list[Fi
     for f in copied_files:
         depth_to_copied_fnames[f.depth].add(f.path.name)
     assert depth_to_expected_fnames == depth_to_copied_fnames
-
-
-if __name__ == "__main__":
-    unittest.main()
