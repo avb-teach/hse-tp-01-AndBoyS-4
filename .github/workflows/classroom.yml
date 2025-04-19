@@ -40,6 +40,4 @@ jobs:
     #     path: results.xml
     #     reporter: java-junit
     - name: Autograding Reporter
-      uses: classroom-resources/autograding-grading-reporter@v1
-      with:
-          runners: run_tests
+      uses: classroom-resources/autograding-python-grader@v1
