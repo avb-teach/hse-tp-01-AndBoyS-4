@@ -12,9 +12,11 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  run-autograding-tests:
 
     runs-on: ubuntu-22.04
+    if: github.actor != 'github-classroom[bot]'
+
     strategy:
       fail-fast: false
 
@@ -28,11 +30,16 @@ jobs:
         path: ./.venv
         key: venv-${{ hashFiles('uv.lock') }}
     - name: run tests
+      id: run_tests
       run: uv run pytest --junitxml=results.xml
-    - name: Upload Test Report
-      uses: dorny/test-reporter@v2
-      if: always()  # Ensures this runs even if tests fail
+    # - name: Upload Test Report
+    #   uses: dorny/test-reporter@v2
+    #   if: always()  # Ensures this runs even if tests fail
+    #   with:
+    #     name: Pytest Results
+    #     path: results.xml
+    #     reporter: java-junit
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
       with:
-        name: Pytest Results
-        path: results.xml
-        reporter: java-junit
+          runners: run_tests
