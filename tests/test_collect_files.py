@@ -6,7 +6,7 @@ from typing import NamedTuple
 
 from scripts.create_test_data import create_test_structure
 
-REPO_DIR = Path(subprocess.check_output(["git", "rev-parse", "--show-toplevel"]).decode().strip())
+REPO_DIR = Path(__file__).parents[1]
 SCRIPT_PATH = REPO_DIR / "collect_files.sh"
 
 
