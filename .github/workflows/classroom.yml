@@ -1,0 +1,38 @@
+name: Tests
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+    - uses: actions/cache@v3
+      name: Cache venv
+      with:
+        path: ./.venv
+        key: venv-${{ hashFiles('uv.lock') }}
+    - name: run tests
+      run: uv run pytest --junitxml=results.xml
+    - name: Upload Test Report
+      uses: dorny/test-reporter@v2
+      if: always()  # Ensures this runs even if tests fail
+      with:
+        name: Pytest Results
+        path: results.xml
+        reporter: java-junit
