@@ -1,6 +1,6 @@
 name: Autograding Tests
 'on':
-- pull_request
+- push
 permissions:
   checks: write
   actions: read
@@ -12,12 +12,15 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - name: Install dependendies
+      run: pip install .
+    - name: Download tests script
+      run: mkdir tests; curl -o tests/test_collect_files.py ${{ secrets.TESTS_URL }}
     - name: Task 1
       id: task-1
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 1
-        setup-command: pip install .
         command: pytest tests/test_collect_files.py::test_script_runs_and_accepts_two_args
         timeout: 10
         max-score: 1
@@ -26,7 +29,6 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 2
-        setup-command: pip install .
         command: pytest tests/test_collect_files.py::test_collect_files_depth_2
         timeout: 10
         max-score: 1
@@ -35,7 +37,6 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 3
-        setup-command: pip install .
         command: pytest tests/test_collect_files.py::test_collect_files_deep
         timeout: 10
         max-score: 2
@@ -44,7 +45,6 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 4
-        setup-command: pip install .
         command: pytest tests/test_collect_files.py::test_collect_files_non_unique
         timeout: 10
         max-score: 2
@@ -53,7 +53,6 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 5
-        setup-command: pip install .
         command: pytest tests/test_collect_files.py::test_collect_files_max_depth
         timeout: 10
         max-score: 3
