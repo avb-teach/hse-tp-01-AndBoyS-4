@@ -1,5 +1,5 @@
-import subprocess
 import tempfile
+import unittest
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import NamedTuple
@@ -108,3 +108,7 @@ def _check_max_depth_files(expected_files: list[FileData], copied_files: list[Fi
     for f in copied_files:
         depth_to_copied_fnames[f.depth].add(f.path.name)
     assert depth_to_expected_fnames == depth_to_copied_fnames
+
+
+if __name__ == "__main__":
+    unittest.main()
