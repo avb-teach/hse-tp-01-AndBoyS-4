@@ -1,6 +1,6 @@
 name: Autograding Tests
 'on':
-- push
+- pull_request
 permissions:
   checks: write
   actions: read
