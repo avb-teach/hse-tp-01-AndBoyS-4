@@ -28,7 +28,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 1
-        command: pytest tests/test_collect_files.py::test_script_runs_and_accepts_two_args
+        command: pytest tests/test_collect_files.py::test_script_runs_and_accepts_two_args --tb=line
         timeout: 10
         max-score: 1
     - name: Task 2
@@ -36,7 +36,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 2
-        command: pytest tests/test_collect_files.py::test_collect_files_depth_2
+        command: pytest tests/test_collect_files.py::test_collect_files_depth_2 --tb=line
         timeout: 10
         max-score: 1
     - name: Task 3
@@ -44,7 +44,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 3
-        command: pytest tests/test_collect_files.py::test_collect_files_deep
+        command: pytest tests/test_collect_files.py::test_collect_files_deep --tb=line
         timeout: 10
         max-score: 2
     - name: Task 4
@@ -52,7 +52,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 4
-        command: pytest tests/test_collect_files.py::test_collect_files_non_unique
+        command: pytest tests/test_collect_files.py::test_collect_files_non_unique --tb=line
         timeout: 10
         max-score: 2
     - name: Task 5
@@ -60,7 +60,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 5
-        command: pytest tests/test_collect_files.py::test_collect_files_max_depth
+        command: pytest tests/test_collect_files.py::test_collect_files_max_depth --tb=line
         timeout: 10
         max-score: 3
     - name: Autograding Reporter
