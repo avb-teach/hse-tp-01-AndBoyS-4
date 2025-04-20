@@ -11,7 +11,7 @@
 
 Пример:
 
-`collect_files.sh /home/input_dir /homo/output_dir`
+`./collect_files.sh /home/input_dir /home/output_dir`
 
 `/home/output_dir` изначально пустая.
 
